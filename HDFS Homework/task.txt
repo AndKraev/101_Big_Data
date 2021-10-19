@@ -1,0 +1,7 @@
+HDFS Homework
+Description
+Task 1:
+
+Using Java / Scala / Python convert data from lesson 2 into Avro or Parquet and save as
+a copy (For example for Java check https://hadoop.apache.org/docs/r2.7.5/api/org/apache/hadoop/fs/FileSystem.html ).
+Copy project src to the archive. Make screenshot of parquet contents.
