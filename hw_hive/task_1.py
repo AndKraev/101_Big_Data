@@ -13,7 +13,17 @@ from pyspark.sql.types import (
 )
 
 
-def build_hotel_dataframe(sparksession, filepath):
+def build_hotel_dataframe(sparksession: SparkSession, filepath: str) -> "Dataframe":
+    """Creates a dataframe from train.csv
+
+    :param sparksession: The entry point into all functionality in Spark is the
+    SparkSession class.
+    :type sparksession: SparkSession
+    :param filepath: Path to train.csv
+    :type filepath: String
+    :return: Spark Dataframe with hotels
+    :rtype: Dataframe
+    """
     schema = StructType(
         [
             StructField("date_time", TimestampType()),
@@ -45,7 +55,14 @@ def build_hotel_dataframe(sparksession, filepath):
     return sparksession.read.csv(filepath, sep=",", header=True, schema=schema)
 
 
-def show_top_3_hotels_between_couples(dataframe):
+def show_top_3_hotels_between_couples(dataframe: "Dataframe") -> None:
+    """Shows top 3 most popular hotels between couples.
+
+    :param dataframe: A Spark Dataframe with hotels
+    :type dataframe: Dataframe
+    :return: None
+    :rtype: NoneType
+    """
     (
         dataframe.filter(dataframe["srch_adults_cnt"] == 2)
         .select("hotel_continent", "hotel_country", "hotel_market")
