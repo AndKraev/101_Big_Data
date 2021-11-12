@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 import pandas as pd
 
-from hw3.csv_to_parquet import CSVToParquet, arg_parser
+from hw_hdfs.csv_to_parquet import CSVToParquet, arg_parser
 
 
 def test_arg_parser_input_and_output_folders():
@@ -50,8 +50,8 @@ def test_csvtoparquet_convert_fail(tmp_path):
     assert not Path(tmp_path / "test.parquet").is_file()
 
 
-@patch("hw3.csv_to_parquet.CSVToParquet.is_csv")
-@patch("hw3.csv_to_parquet.CSVToParquet.convert")
+@patch("hw_hdfs.csv_to_parquet.CSVToParquet.is_csv")
+@patch("hw_hdfs.csv_to_parquet.CSVToParquet.convert")
 def test_csvtoparquet_convert_run_check_folder_creation(
     mocked_convert, mocked_is_csv, tmp_path
 ):
@@ -59,8 +59,8 @@ def test_csvtoparquet_convert_run_check_folder_creation(
     assert Path(tmp_path / "output").is_dir()
 
 
-@patch("hw3.csv_to_parquet.CSVToParquet.is_csv")
-@patch("hw3.csv_to_parquet.CSVToParquet.convert")
+@patch("hw_hdfs.csv_to_parquet.CSVToParquet.is_csv")
+@patch("hw_hdfs.csv_to_parquet.CSVToParquet.convert")
 def test_csvtoparquet_convert_run(mocked_convert, mocked_is_csv, tmp_path):
     with open(Path(tmp_path / "test1.csv"), mode="w") as f:
         f.write(r"1")
