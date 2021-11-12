@@ -50,11 +50,7 @@ def most_popular_search_and_booked_country_with_sort(dataframe):
 
 
 if __name__ == "__main__":
-    spark = (
-        SparkSession.builder.master("local[*]")
-        .appName("PySpark_Tutorial")
-        .getOrCreate()
-    )
+    spark = SparkSession.builder.master("local[*]").appName("Task_2").getOrCreate()
     filepath = "E:\\PyEducation\\101 Big Data\\expedia-hotel-recommendations\\train.csv"
 
     # Try with sort

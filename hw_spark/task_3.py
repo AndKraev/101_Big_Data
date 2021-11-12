@@ -27,10 +27,6 @@ def top_3_hotels_with_children_not_booked(dataframe):
 
 
 if __name__ == "__main__":
-    spark = (
-        SparkSession.builder.master("local[*]")
-        .appName("PySpark_Tutorial")
-        .getOrCreate()
-    )
+    spark = SparkSession.builder.master("local[*]").appName("Task_3").getOrCreate()
     filepath = "E:\\PyEducation\\101 Big Data\\expedia-hotel-recommendations\\train.csv"
     top_3_hotels_with_children_not_booked(build_hotel_dataframe(spark, filepath))

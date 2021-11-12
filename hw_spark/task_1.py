@@ -74,10 +74,6 @@ def show_top_3_hotels_between_couples(dataframe: "Dataframe") -> None:
 
 
 if __name__ == "__main__":
-    spark = (
-        SparkSession.builder.master("local[*]")
-        .appName("PySpark_Tutorial")
-        .getOrCreate()
-    )
+    spark = SparkSession.builder.master("local[*]").appName("Task_1").getOrCreate()
     filepath = "E:\\PyEducation\\101 Big Data\\expedia-hotel-recommendations\\train.csv"
     show_top_3_hotels_between_couples(build_hotel_dataframe(spark, filepath))
