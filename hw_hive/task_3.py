@@ -6,7 +6,24 @@ from task_1 import build_hotel_dataframe
 
 
 def top_3_hotels_with_children_not_booked(dataframe):
-    pass
+    """Find top 3 hotels where people with children are interested but not booked in the
+    end.
+
+        :param dataframe: A Spark Dataframe with hotels
+        :type dataframe: Dataframe
+        :return: None
+        :rtype: NoneType
+    """
+    (
+        dataframe.filter(
+            (dataframe["srch_children_cnt"] > 0) & (dataframe["is_booking"] == 0)
+        )
+        .select("hotel_continent", "hotel_country", "hotel_market")
+        .groupBy("hotel_continent", "hotel_country", "hotel_market")
+        .count()
+        .sort("count", ascending=False)
+        .show(3)
+    )
 
 
 if __name__ == "__main__":
