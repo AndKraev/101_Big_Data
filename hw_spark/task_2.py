@@ -4,7 +4,8 @@ application to the archive. Make screenshots of results: before and after execut
 import time
 
 from pyspark.sql import DataFrame, SparkSession
-from task_1 import build_hotel_dataframe
+
+from hw_spark.task_1 import build_hotel_dataframe
 
 
 def most_popular_search_and_booked_country_with_agg(dataframe: DataFrame) -> DataFrame:
