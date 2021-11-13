@@ -2,7 +2,7 @@
 continent, country and market). Implement using scala or python. Create a separate
 application. Copy the application to the archive. Make screenshots of results: before
 and after execution."""
-from pyspark.sql import SparkSession
+from pyspark.sql import Dataframe, SparkSession
 from pyspark.sql.types import (
     ByteType,
     DateType,
@@ -14,7 +14,7 @@ from pyspark.sql.types import (
 )
 
 
-def build_hotel_dataframe(sparksession: SparkSession, filepath: str) -> "Dataframe":
+def build_hotel_dataframe(sparksession: SparkSession, filepath: str) -> Dataframe:
     """Creates a dataframe from train.csv
 
     :param sparksession: The entry point into all functionality in Spark is the
@@ -56,7 +56,7 @@ def build_hotel_dataframe(sparksession: SparkSession, filepath: str) -> "Datafra
     return sparksession.read.csv(filepath, sep=",", header=True, schema=schema)
 
 
-def show_top_hotels_between_couples(dataframe: "Dataframe", limit: int) -> None:
+def show_top_hotels_between_couples(dataframe: Dataframe, limit: int) -> None:
     """Shows top 3 most popular hotels between couples.
 
     :param dataframe: A Spark Dataframe with hotels
