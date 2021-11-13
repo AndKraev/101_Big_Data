@@ -6,6 +6,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.types import (
     ByteType,
     DateType,
+    DoubleType,
     IntegerType,
     StructField,
     StructType,
@@ -32,7 +33,7 @@ def build_hotel_dataframe(sparksession: SparkSession, filepath: str) -> "Datafra
             StructField("user_location_country", IntegerType()),
             StructField("user_location_region", IntegerType()),
             StructField("user_location_city", IntegerType()),
-            StructField("orig_destination_distance", IntegerType()),
+            StructField("orig_destination_distance", DoubleType()),
             StructField("user_id", IntegerType()),
             StructField("is_mobile", ByteType()),
             StructField("is_package", ByteType()),
@@ -55,25 +56,28 @@ def build_hotel_dataframe(sparksession: SparkSession, filepath: str) -> "Datafra
     return sparksession.read.csv(filepath, sep=",", header=True, schema=schema)
 
 
-def show_top_3_hotels_between_couples(dataframe: "Dataframe") -> None:
+def show_top_hotels_between_couples(dataframe: "Dataframe", limit: int) -> None:
     """Shows top 3 most popular hotels between couples.
 
     :param dataframe: A Spark Dataframe with hotels
     :type dataframe: Dataframe
-    :return: None
-    :rtype: NoneType
+    :param limit: Number of hotels to return
+    :type limit: int
+    :return: A Spark Dataframe with hotels and count  (treat hotel as composite key of
+    continent, country and market)
+    :rtype: Dataframe
     """
-    (
+    return (
         dataframe.filter(dataframe["srch_adults_cnt"] == 2)
         .select("hotel_continent", "hotel_country", "hotel_market")
         .groupBy("hotel_continent", "hotel_country", "hotel_market")
         .count()
         .sort("count", ascending=False)
-        .show(3)
+        .limit(limit)
     )
 
 
 if __name__ == "__main__":
     spark = SparkSession.builder.master("local[*]").appName("Task_1").getOrCreate()
     filepath = "E:\\PyEducation\\101 Big Data\\expedia-hotel-recommendations\\train.csv"
-    show_top_3_hotels_between_couples(build_hotel_dataframe(spark, filepath))
+    show_top_hotels_between_couples(build_hotel_dataframe(spark, filepath), 3).show()
