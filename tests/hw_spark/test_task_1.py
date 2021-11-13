@@ -1,7 +1,6 @@
 from unittest.mock import Mock
 
 import pandas as pd
-import pytest
 from pandas.testing import assert_frame_equal
 from pyspark.sql.types import (
     ByteType,
@@ -14,12 +13,6 @@ from pyspark.sql.types import (
 )
 
 from hw_spark.task_1 import *
-
-
-@pytest.fixture
-def train_df():
-    spark = SparkSession.builder.master("local[*]").appName("Test").getOrCreate()
-    return build_hotel_dataframe(spark, r"tests\hw_spark\train_100.csv")
 
 
 def test_build_hotel_dataframe():
