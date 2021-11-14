@@ -2,7 +2,8 @@
 end. Implement using scala or python. Create a separate application. Copy the
 application to the archive. Make screenshots of results: before and after execution. """
 from pyspark.sql import DataFrame, SparkSession
-from task_1 import build_hotel_dataframe
+
+from hw_spark.task_1 import build_hotel_dataframe
 
 
 def top_3_hotels_with_children_not_booked(dataframe: DataFrame) -> DataFrame:
