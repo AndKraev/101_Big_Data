@@ -18,7 +18,6 @@ def get_json_schema(spark: SparkSession, host: str, topic: str) -> StructType:
         .option("kafka.bootstrap.servers", host)
         .option("subscribe", topic)
         .option("startingOffsets", "earliest")
-        .option("endingOffsets", """{"%s":{"0":2}}""" % topic)
         .load()
     )
     headers = json.loads(df.select(col("value").cast("string")).first().value).keys()
