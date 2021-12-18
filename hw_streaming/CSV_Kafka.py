@@ -137,10 +137,10 @@ if __name__ == "__main__":
     )
 
     CSVtoKafka(
-        filepath="train.csv",
+        filepath="/mnt/e/PyEducation/101 Big Data/expedia-hotel-recommendations/train_3m.csv",
         sep=",",
         kafka_host="localhost:9092",
-        topic="hotels",
+        topic="hotels-3m",
         workers=6,
         max_queue=1_000_000,
         report_timelag=5,
